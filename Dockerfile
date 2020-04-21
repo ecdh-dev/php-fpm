@@ -67,9 +67,12 @@ RUN docker-php-ext-install \
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --version=1.9.0 --install-dir=/usr/local/bin --filename=composer
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY php.ini /usr/local/etc/php/php.ini
+COPY conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
 
 USER $UNAME:
 
