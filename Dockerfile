@@ -13,6 +13,8 @@ ARG GID=1000
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
+RUN pecl install rar
+
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
      cron \
@@ -42,6 +44,8 @@ RUN docker-php-ext-configure \
 
 RUN docker-php-ext-configure \
         intl
+
+RUN docker-php-ext-enable rar
 
 RUN docker-php-ext-install \
       opcache \
